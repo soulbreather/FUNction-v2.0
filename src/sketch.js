@@ -16,6 +16,7 @@ function setup() {
 
 function draw() {
   background(220);
+  // draw and moveprojectiles
   let projectileRemoveList = [];
   for (let projectile of projectiles) {
     projectile.move();
@@ -33,9 +34,12 @@ function draw() {
   for (let projectileToRemove of projectileRemoveList) {
     projectiles.splice(projectileToRemove, 1);
   }
+  // move and draw player
   player.move();
   player.display();
 
+
+  //
   let removeBulletList = [];
   for (let bullet of bullets) {
     bullet.move();

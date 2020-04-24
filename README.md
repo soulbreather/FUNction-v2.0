@@ -16,7 +16,7 @@ You can access the simulation online using this awesome button [![Click Me](http
 **Locally:**
 The repository can also be cloned and runned from your desktop. Just simply run this command in your terminal:
 
-    git clone https://github.com/soulbreather/Virus-Simulation.git
+    git clone https://github.com/soulbreather/FUNction-v2.0.git
 
 Or alternatively install it by clicking [this](https://github.com/soulbreather/FUNction-v2.0/archive/master.zip).
 
