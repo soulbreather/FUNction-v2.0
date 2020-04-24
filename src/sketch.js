@@ -5,8 +5,8 @@ let bullets = [];
 
 function setup() {
   // Creates the canvas in a div with the id of 'canvas-holder'
-  windowWidth = windowWidth * 0.723;
-  canvas = createCanvas(windowWidth, windowHeight * 0.9);
+  
+  canvas = createCanvas($("#canvas-holder").width(), windowHeight * 0.9);
   canvas.parent('canvas-holder');
   for (let i = 0; i < tempAmount; i++) {
     projectiles[i] = new Projectile(20, floor(random(1, 5.9)), random(3, 6));
@@ -80,7 +80,7 @@ function keyReleased() {
 
 // Makes canvas responsive aka. always the full span of the browser
 function windowResized() {
-  resizeCanvas(windowWidth * 0.723, windowHeight * 0.9);
+  resizeCanvas($("#canvas-holder").width(), windowHeight * 0.9);
   // make positions and sizes responsive
   player.x = floor(width * (1 - (25 / 347)));
   player.radius = floor(width * (5 / 494) + (1470 / 247));

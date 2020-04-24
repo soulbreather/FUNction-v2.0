@@ -20,17 +20,38 @@
   <script src="projektil.js"></script>
   <script src="sketch.js"></script>
 
-  <div class="container">
-    <div id="canvas-holder"></div>
-    <div class="row justify-content-center">
-      <div class="col-md-auto my-2">
-        <div class="card full-width" id="highscores">
-          <div class="card-header display-1" id="highscores-header">🏆 Highscores 🏆</div>
-          <p>Jack: 23145 points</p>
-          <p>Rose: 21405 points</p>
-          <p>Bryan: 18402 points</p>
-          <p>Maddie: 16032 points</p>
-          <p>Luke: 14945 points</p>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-9 mt-4 pl-3">
+        <div id="canvas-holder"></div>
+      </div>
+      <div class="col-xl-3 mt-4 mx-auto">
+        <div class="card" id="highscores">
+          <div class="card-header display-4" id="highscores-header">🏆 Highscores 🏆</div>
+          <div class="card-body pb-1" style="height: 49rem">
+            <div class="row">
+              <div class="col mx-5">
+                <table class="table mb-0">
+                  <tbody>
+                    <tr>
+                      <td class="tableName pr-0">Jack</td>
+                      <td>2000 points</td>
+                    </tr>
+                    <tr>
+                      <td class="tableName pr-0">Lily</td>
+                      <td>1885 points</td>
+                    </tr>
+                    <tr>
+                      <td class="tableName pr-0">Larry</td>
+                      <td>3 points</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </div>
@@ -45,13 +66,13 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-  </script>
+    </script>
 </body>
 
 </html>
