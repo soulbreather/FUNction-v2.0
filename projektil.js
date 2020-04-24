@@ -133,6 +133,11 @@ class Player {
         this.radius = radius;
         this.speed = speed;
         this.dir = 0;
+
+        this.canFire = true;
+        this.isFiring = false;
+        this.rateOfFire = 0.2;
+        this.lastFire = -this.rateOfFire;
     }
 
     move() {
@@ -143,6 +148,15 @@ class Player {
         } else if (this.y >= height - this.radius) {
             this.y = height - this.radius;
         }
+        // check if you can fire
+        if (!this.canFire) {
+            this.canFire = this.lastFire <= (millis() - this.rateOfFire * 1000);
+        }
+        if (this.canFire && this.isFiring) {
+            bullets.push(new Bullet(player.x - player.radius, player.y, 4, 10));
+            this.canFire = false;
+            this.lastFire = millis();
+        }
     }
 
     display() {
@@ -152,18 +166,50 @@ class Player {
         circle(this.x, this.y, this.radius * 2);
         pop();
     }
+
+    movement(state, myKey) {
+        if (state == "pressed") {
+            if (keyCode == UP_ARROW || myKey == "w") {
+                this.dir -= 1;
+            }
+            if (keyCode == DOWN_ARROW || myKey == "s") {
+                this.dir += 1;
+            }
+            if (myKey == "j") {
+                this.isFiring = true;
+            }
+        } else if (state == "released") {
+            if (keyCode == UP_ARROW || key == "w") {
+                this.dir += 1;
+            }
+            if (keyCode == DOWN_ARROW || key == "s") {
+                this.dir -= 1;
+            }
+            if (myKey == "j") {
+                this.isFiring = false;
+            }
+        }
+
+    }
 }
 
 class Bullet {
     constructor(x, y, radius, speed) {
-
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.speed = speed;
     }
 
     move() {
-
+        this.x -= this.speed;
     }
 
     display() {
-
+        push();
+        noStroke();
+        fill(color(100));
+        circle(this.x, this.y, this.radius * 2);
+        pop();
     }
 }
