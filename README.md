@@ -6,12 +6,12 @@ This is game is all about surviving!
 
 The longer you survive the harder it becomes to survive. You gain points by surviving, and shooting down meteors and spaceships.
 
-You control the ship by using "W" and "S", "W" is up and "S" is down. You can shoot by tapping "J".
+You control the ship by using "W" and "S", "W" is up and "S" is down. You shoot by holding down "J".
 
 ## How to open/use the program
 
 **Online:**
-You can access the simulation online using this awesome button [![Click Me](https://awesome.re/badge.svg)](https://soulbreather.github.io/FUNction-v2.0/index.html)
+You can access the simulation online using this awesome button [![Click Me](https://awesome.re/badge.svg)](https://soulbreather.github.io/FUNction-v2.0/src/index.html)
 
 **Locally:**
 The repository can also be cloned and runned from your desktop. Just simply run this command in your terminal:
