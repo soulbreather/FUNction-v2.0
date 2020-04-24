@@ -1,5 +1,3 @@
-# FUNction-v2.0
-
 ## How To Play
 
 This is game is all about surviving!
