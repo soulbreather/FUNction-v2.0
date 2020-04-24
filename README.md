@@ -22,4 +22,4 @@ Or alternatively install it by clicking [this](https://github.com/soulbreather/F
 
 If you discover any bugs or you just want some features added feel free to create an issue, remember to use our template so we can understand your request down to every detail.
 
-You can create an issue by clicking [this](https://github.com/soulbreather/FUNction-v2.0/issues/new/choose){:target="_blank" rel="noopener"}.
+You can create a new issue by clicking [this](https://github.com/soulbreather/FUNction-v2.0/issues/new/choose).

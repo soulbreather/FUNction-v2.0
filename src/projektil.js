@@ -11,6 +11,7 @@ class Projectile {
         this.speed = speed;
         this.hasCollided = false;
         this.col = color(random(0, 255), random(0, 255), random(0, 255));
+        this.hasCollided = false;
 
         // coefficients variables
         this.a = 0;
@@ -104,6 +105,7 @@ class Projectile {
         pop();
     }
 
+    // calculates the Y value of the given x value according to its function
     getYValue() {
         let y = 0;
         if (this.projectileType == 1) {
@@ -153,7 +155,7 @@ class Player {
             this.canFire = this.lastFire <= (millis() - this.rateOfFire * 1000);
         }
         if (this.canFire && this.isFiring) {
-            bullets.push(new Bullet(player.x - player.radius, player.y, 4, 10));
+            bullets.push(new Bullet(player.x - player.radius, player.y, 10));
             this.canFire = false;
             this.lastFire = millis();
         }
@@ -194,10 +196,12 @@ class Player {
 }
 
 class Bullet {
-    constructor(x, y, radius, speed) {
+    radius = 4;
+
+    constructor(x, y, speed) {
         this.x = x;
         this.y = y;
-        this.radius = radius;
+
         this.speed = speed;
     }
 
@@ -209,7 +213,7 @@ class Bullet {
         push();
         noStroke();
         fill(color(100));
-        circle(this.x, this.y, this.radius * 2);
+        circle(this.x, this.y, Bullet.radius * 2);
         pop();
     }
 }

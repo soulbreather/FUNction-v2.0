@@ -15,7 +15,8 @@ canvas {
 }
 
 
-#highscores ol {
+#highscores p {
+  font-size: 40px;
   margin: 3px 0;
   text-align: center;
 }

@@ -25,18 +25,33 @@ function draw() {
     if (projectile.x > width + projectile.radius) {
       projectile.x = -projectile.radius;
       projectile.getCoefficients();
+      projectile.hasCollided = false;
       // or remove it
       // let projectileIndex = projectiles.indexOf(projectile);
       // projectileRemoveList.push(projectileIndex);
     }
   }
-  // this code removes the projectiles out of screen from the projectiles list
+  // remove the projectiles out of screen from the projectiles list
   for (let projectileToRemove of projectileRemoveList) {
     projectiles.splice(projectileToRemove, 1);
   }
   // move and draw player
   player.move();
   player.display();
+
+  // check if projectile and player has collided
+  for (let projectile of projectiles) {
+    if (!projectile.hasCollided) {
+      myDistance = dist(projectile.x, projectile.y, player.x, player.y);
+      if (myDistance <= projectile.radius + player.radius) {
+        // A collision has occured
+        console.log("A collision has occured.");
+        projectile.hasCollided = true;
+      }
+    }
+
+
+  }
 
   // move and draw bullets 
   let removeBulletList = [];
@@ -66,4 +81,11 @@ function keyReleased() {
 // Makes canvas responsive aka. always the full span of the browser
 function windowResized() {
   resizeCanvas(windowWidth * 0.723, windowHeight * 0.9);
+  // make positions and sizes responsive
+  player.x = floor(width * (1 - (25 / 347)));
+  player.radius = floor(width * (5 / 494) + (1470 / 247));
+  Bullet.radius = floor(width * (1 / 494) + (294 / 247));
+  for (let projectile of projectiles) {
+    projectile.radius = floor(width * (5 / 494) + (1470 / 247));
+  }
 }
