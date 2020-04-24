@@ -38,8 +38,7 @@ function draw() {
   player.move();
   player.display();
 
-
-  //
+  // move and draw bullets 
   let removeBulletList = [];
   for (let bullet of bullets) {
     bullet.move();
