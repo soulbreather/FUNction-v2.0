@@ -23,3 +23,11 @@ Or alternatively install it by clicking [this](https://github.com/soulbreather/F
 If you discover any bugs or you just want some features added feel free to create an issue, remember to use our template so we can understand your request down to every detail.
 
 You can create a new issue by clicking [this](https://github.com/soulbreather/FUNction-v2.0/issues/new/choose).
+
+## TODO List
+
+- [ ] Make Heart system (lives)
+- [ ] Multiplier for score when a certain amount of time has passed
+- [ ] Powers / Upgrades
+- [ ] Make scoreboard "Real" (saved score with cookies?)
+- [ ] Reset highscore cookie via button

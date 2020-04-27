@@ -16,7 +16,11 @@ canvas {
 #highscores-header {
   background-color: #333;
   text-align: center;
-  font-size: 3.3rem;
+  font-size: 2.5rem;
+}
+
+#highscore-table td{
+  text-align: center;
 }
 
 .tableName {

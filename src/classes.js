@@ -138,7 +138,7 @@ class Player {
 
         this.canFire = true;
         this.isFiring = false;
-        this.rateOfFire = 0.2;
+        this.rateOfFire = 0.1;
         this.lastFire = -this.rateOfFire;
     }
 
@@ -169,6 +169,7 @@ class Player {
         pop();
     }
 
+    // code that whether or not the buttons owned by the player has been pressed or released
     movement(state, myKey) {
         if (state == "pressed") {
             if (keyCode == UP_ARROW || myKey == "w") {
@@ -181,22 +182,23 @@ class Player {
                 this.isFiring = true;
             }
         } else if (state == "released") {
-            if (keyCode == UP_ARROW || key == "w") {
+            if (keyCode == UP_ARROW || myKey == "w") {
                 this.dir += 1;
             }
-            if (keyCode == DOWN_ARROW || key == "s") {
+            if (keyCode == DOWN_ARROW || myKey == "s") {
                 this.dir -= 1;
             }
             if (myKey == "j") {
                 this.isFiring = false;
             }
         }
-
     }
 }
 
+// bullet that is fired from player
 class Bullet {
-    radius = 4;
+    // all bullets have the same radius
+    static radius = 4;
 
     constructor(x, y, speed) {
         this.x = x;
