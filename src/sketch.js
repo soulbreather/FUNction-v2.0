@@ -5,15 +5,32 @@ let player;
 let projectiles = [];
 let bullets = [];
 
+let nHighscores = [];
 let highscore = 0;
 
 function setup() {
-  // is there a cookie?
-  if (document.cookie != '') {
-    highscore = int(document.cookie.split('=')[1]);
-  }
-  // Creates the canvas in a div with the id of 'canvas-holder'
 
+  // load cookie
+  if (document.cookie != '') {
+    let nCookie = CookieController.getCookie('minData');
+    nHighscores = JSON.parse(nCookie);
+  }
+
+  // display highscores
+  let tableBody = document.querySelector('#highscoreTable');
+  for (let i = 0; i < nHighscores.length; i++) {
+    let score = nHighscores[i];
+    tableBody.innerHTML += `
+      <tr>
+        <td class="tableName pr-0">${score.name}</td>
+        <td>${score.highscore} points</td>
+      </tr>
+    `;
+
+  }
+  console.log(nHighscores);
+
+  // Creates the canvas in a div with the id of 'canvas-holder'
   canvas = createCanvas($("#canvas-holder").width(), windowHeight * 0.9);
   canvas.parent('canvas-holder');
 
@@ -69,6 +86,11 @@ function draw() {
         if (myDistance <= projectile.radius + player.radius) {
           // A collision has occured
           console.log("A collision has occured.");
+          gameController.lives -= 1;
+          if (gameController.lives <= 0) {
+            gameController.saveHighscores();
+            location.reload();
+          }
           projectile.hasCollided = true;
         }
       }
@@ -82,7 +104,7 @@ function draw() {
       bullet.move();
       bullet.display();
       // if out of screen add to removelist - to not hog resources
-      if (bullet.x < 0 - bullet.radius) {
+      if (bullet.x < 0 - Bullet.radius) {
         let bulletIndex = bullets.indexOf(bullet);
         removeBulletList.push(bulletIndex);
       }
@@ -93,15 +115,20 @@ function draw() {
     }
 
     gameController.displayScore();
-  } else {
+    gameController.displayLives();
+  } else if (!GameController.isStarted) {
     // draw menu
     gameController.displayMenu();
+  } else if (GameController.isStarted && GameController.isPaused) {
+    // draw pause menu
+    gameController.displayPauseMenu();
   }
 
 }
 
 function keyPressed() {
   player.movement("pressed", key);
+  gameController.keyHasBeenPressed();
 }
 
 function keyReleased() {

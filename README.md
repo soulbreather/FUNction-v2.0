@@ -26,8 +26,10 @@ You can create a new issue by clicking [this](https://github.com/soulbreather/FU
 
 ## TODO List
 
-- [ ] Make Heart system (lives)
+- [x] Make Heart system (lives)
+- [x] Make scoreboard "Real" (saved score with cookies?)
+- [x] Reset highscore cookie via button
+- [ ] Make player and enemies look good
+- [ ] Levels
 - [ ] Multiplier for score when a certain amount of time has passed
 - [ ] Powers / Upgrades
-- [ ] Make scoreboard "Real" (saved score with cookies?)
-- [ ] Reset highscore cookie via button

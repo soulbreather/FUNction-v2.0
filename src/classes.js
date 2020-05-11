@@ -143,7 +143,7 @@ class Player {
     }
 
     move() {
-        this.y += this.dir * this.speed;
+        this.y += constrain(this.dir, -1, 1) * this.speed;
         // limit inside screen
         if (this.y <= this.radius) {
             this.y = this.radius;

@@ -5,6 +5,7 @@ class GameController {
 
     constructor() {
         this.score = 0;
+        this.lives = 3;
         this.playButton = new Button(width / 2, height / 2, 200, 90, 'Start');
     }
 
@@ -12,25 +13,77 @@ class GameController {
         this.playButton.display();
     }
 
+    displayPauseMenu() {
+        push();
+        textAlign(CENTER, CENTER);
+        textSize(50);
+        text('Spillet er sat på pause!', width / 2, height / 2 - 20);
+        textSize(30);
+
+        text('Tryk ESCAPE igen for at fortsætte', width / 2, height / 2 + 40);
+
+        pop();
+    }
+
     displayScore() {
         textAlign(RIGHT, TOP);
         textSize(30);
-        fill(0)
+        fill(0);
         text(str(this.score) + " points", width - 5, 5);
+    }
+
+    keyHasBeenPressed() {
+        if (keyCode == ESCAPE && GameController.isStarted) {
+            GameController.isPaused = !GameController.isPaused;
+        }
     }
 
     mouseHasBeenPressed() {
         if (this.playButton.isClicked()) {
             GameController.isStarted = true;
+            GameController.isPlaying = true;
         }
     }
 
     survivalScoreUpdater() {
         this.score += 10;
-        if (this.score > highscore) {
-            highscore = this.score;
-            document.cookie = 'highscore='+highscore;
+    }
+
+    displayLives() {
+        this.hearts = "❤️".repeat(this.lives);
+        textAlign(LEFT, TOP);
+        textSize(30);
+        text(str(this.hearts), 0 + 5, 5);
+    }
+
+    saveHighscores() {
+        let myName = window.prompt('Skriv det navn som skal på scoren', '');
+        if (myName == null || myName == "") {
+            myName = 'Unnamed';
         }
+        // add
+        nHighscores.push({
+            name: myName,
+            highscore: this.score,
+        });
+
+        // sort
+        nHighscores.sort((a, b) => {
+            return b.highscore - a.highscore;
+        });
+        console.log(nHighscores);
+        
+        // save
+        let saveValue = JSON.stringify(nHighscores.slice(0, 5));
+        CookieController.setCookie('minData', saveValue, 365);
+
+    }
+
+
+    resetHighscores() {
+        alert('Highscoren er blevet slettet');
+        CookieController.setCookie('minData', null, 0);
+        location.reload()
     }
 }
 
@@ -59,10 +112,33 @@ class Button {
 
     isClicked() {
         if (this.active && mouseX > this.x - this.width / 2 && mouseX < this.x - this.width / 2 + this.width && mouseY > this.y - this.height / 2 && mouseY < this.y - this.height / 2 + this.height) {
-            console.log('yeet');
             this.active = false;
             return true;
 
         }
+    }
+}
+
+class CookieController {
+    static setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    static getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 }
