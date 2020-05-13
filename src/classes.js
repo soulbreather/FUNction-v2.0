@@ -13,6 +13,8 @@ class Projectile {
         this.col = color(random(0, 255), random(0, 255), random(0, 255));
         this.hasCollided = false;
 
+        this.getANewImage();
+
         // coefficients variables
         this.a = 0;
         this.b = 0;
@@ -22,6 +24,14 @@ class Projectile {
         // it needs to be called once before running and displaying the projectile
         this.getCoefficients();
 
+
+
+    }
+
+    getANewImage() {
+        this.eImage = enemyImages[Math.floor(random(enemyImages.length))];
+        this.iWidth = this.eImage.width / 1.6;
+        this.iHeight = this.eImage.height / 1.6;
     }
 
     // this function creates and gets random coefficients
@@ -94,14 +104,20 @@ class Projectile {
     move() {
         this.x += this.speed;
         this.y = this.getYValue();
+        this.angle = atan(this.getSlope());
         // this.angle = 
     }
 
     display() {
         push();
-        fill(this.col);
-        noStroke();
-        circle(this.x, this.y, this.radius * 2);
+        // fill(this.col);
+        // noStroke();
+        // circle(this.x, this.y, this.radius * 2);
+
+        translate(this.x, this.y);
+        rotate((-PI / 2) + this.angle);
+        imageMode(CENTER);
+        image(this.eImage, 0, 0, this.iWidth, this.iHeight);
         pop();
     }
 
@@ -125,6 +141,30 @@ class Projectile {
             y = this.a * sin(this.b * this.x + this.c) + this.d;
         }
         return y;
+    }
+
+    getSlope() {
+        let angle = 0;
+
+        if (this.projectileType == 1) {
+            // lineaer funktion
+            angle = Math.atan(this.a);
+        } else if (this.projectileType == 2) {
+            // andengrads function
+            angle = Math.atan(2 * this.a * this.x + this.b);
+        } else if (this.projectileType == 3) {
+            // eksponentiel function
+            angle = Math.atan(this.b * log(this.a) * pow(this.a, this.x));
+        } else if (this.projectileType == 4) {
+            // hyperbole function
+            angle = -(this.a / pow(this.x, 2));
+            // angle = this.a * pow(this.x, -1) + this.c;
+        } else if (this.projectileType == 5) {
+            // trigo function
+            angle = Math.atan(cos(this.b * this.x + this.c));
+
+        }
+        return angle;
     }
 }
 
@@ -163,9 +203,13 @@ class Player {
 
     display() {
         push();
-        fill(color(255, 0, 0));
-        stroke(180);
-        circle(this.x, this.y, this.radius * 2);
+        // fill(color(255, 0, 0));
+        // noStroke();
+        // circle(this.x, this.y, this.radius * 2);
+        translate(this.x, this.y);
+        imageMode(CENTER);
+        rotate(-PI / 2);
+        image(playerImage, 0, 0, playerImage.width * 0.7, playerImage.height * 0.7);
         pop();
     }
 
@@ -213,9 +257,13 @@ class Bullet {
 
     display() {
         push();
-        noStroke();
-        fill(color(100));
-        circle(this.x, this.y, Bullet.radius * 2);
+        // stroke(0);
+        // fill(color(255));
+        // circle(this.x, this.y, Bullet.radius * 2);
+        translate(this.x, this.y);
+        rotate(-PI / 2);
+        imageMode(CENTER);
+        image(playerLaserImage, 0, 0, playerLaserImage.width * 0.7, playerLaserImage.height * 0.7);
         pop();
     }
 }

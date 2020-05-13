@@ -1,12 +1,34 @@
 let gameController;
 
-let tempAmount = 10;
+let bg;
+let tempAmount = 4;
 let player;
 let projectiles = [];
 let bullets = [];
 
 let nHighscores = [];
 let highscore = 0;
+
+let enemyImages = [];
+let playerLaserImage;
+
+function preload() {
+  // load all enemy images
+  let enemyColors = ['Blue', 'Green', 'Red'];
+  for (let nColor of enemyColors) {
+    for (let i = 1; i < 6; i++) {
+      let nImage = loadImage(`assets/enemies/enemy${nColor}${i}.png`);
+      enemyImages.push(nImage);
+    }
+  }
+
+  // load player image
+  playerImage = loadImage(`assets/playership.png`);
+
+
+  // load player laser
+  playerLaserImage = loadImage(`assets/playerlaser.png`);
+}
 
 function setup() {
 
@@ -28,10 +50,10 @@ function setup() {
     `;
 
   }
-  console.log(nHighscores);
 
   // Creates the canvas in a div with the id of 'canvas-holder'
   canvas = createCanvas($("#canvas-holder").width(), windowHeight * 0.9);
+  document.querySelector('#defaultCanvas0').style.borderRadius = '0.4rem';
   canvas.parent('canvas-holder');
 
   // set the framerate to 60 so it is equal for all
@@ -44,11 +66,13 @@ function setup() {
   }
   player = new Player(width - 100, 20, 6);
 
+  bg = loadImage('assets/star-background.jpg');
+
   windowResized();
 }
 
 function draw() {
-  background(220);
+  background(bg);
 
   // update score dependent on survival time (every second)
   if (GameController.isStarted && !GameController.isPaused) {
@@ -66,6 +90,7 @@ function draw() {
         projectile.x = -projectile.radius;
         projectile.getCoefficients();
         projectile.hasCollided = false;
+        projectile.getANewImage();
         // or remove it
         // let projectileIndex = projectiles.indexOf(projectile);
         // projectileRemoveList.push(projectileIndex);

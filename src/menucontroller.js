@@ -17,10 +17,10 @@ class GameController {
         push();
         textAlign(CENTER, CENTER);
         textSize(50);
-        text('Spillet er sat på pause!', width / 2, height / 2 - 20);
+        text('The game is paused', width / 2, height / 2 - 20);
         textSize(30);
 
-        text('Tryk ESCAPE igen for at fortsætte', width / 2, height / 2 + 40);
+        text('Hit ESCAPE to resume the game', width / 2, height / 2 + 40);
 
         pop();
     }
@@ -28,7 +28,7 @@ class GameController {
     displayScore() {
         textAlign(RIGHT, TOP);
         textSize(30);
-        fill(0);
+        fill(255);
         text(str(this.score) + " points", width - 5, 5);
     }
 
@@ -57,9 +57,12 @@ class GameController {
     }
 
     saveHighscores() {
-        let myName = window.prompt('Skriv det navn som skal på scoren', '');
+        let myName = window.prompt('Type in the name that should be displayed with the score', '');
         if (myName == null || myName == "") {
             myName = 'Unnamed';
+        }
+        if (myName.length > 9) {
+            myName = myName.slice(0, 10);
         }
         // add
         nHighscores.push({
@@ -72,7 +75,7 @@ class GameController {
             return b.highscore - a.highscore;
         });
         console.log(nHighscores);
-        
+
         // save
         let saveValue = JSON.stringify(nHighscores.slice(0, 5));
         CookieController.setCookie('minData', saveValue, 365);
@@ -81,7 +84,7 @@ class GameController {
 
 
     resetHighscores() {
-        alert('Highscoren er blevet slettet');
+        alert('The highscore has been reset');
         CookieController.setCookie('minData', null, 0);
         location.reload()
     }
@@ -101,7 +104,10 @@ class Button {
         push();
         translate(this.x - this.width / 2, this.y - this.height / 2);
         stroke(0);
+        fill(180);
+        rect(0, 0, this.width + 3, this.height + 4);
         fill(255);
+        noStroke()
         rect(0, 0, this.width, this.height);
         fill(0);
         textSize(70);
