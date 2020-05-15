@@ -5,6 +5,8 @@ class Projectile {
         this.y = 0;
         // this.angle = 0;
 
+        this.hp = 10;
+
         // size and type
         this.radius = radius;
         this.projectileType = projectileType;
@@ -30,8 +32,8 @@ class Projectile {
 
     getANewImage() {
         this.eImage = enemyImages[Math.floor(random(enemyImages.length))];
-        this.iWidth = this.eImage.width / 1.6;
-        this.iHeight = this.eImage.height / 1.6;
+        this.iWidth = this.eImage.width / 1.6 * getImageSize() / 20;
+        this.iHeight = this.eImage.height / 1.6 * getImageSize() / 20;
     }
 
     // this function creates and gets random coefficients
@@ -110,14 +112,21 @@ class Projectile {
 
     display() {
         push();
-        // fill(this.col);
-        // noStroke();
-        // circle(this.x, this.y, this.radius * 2);
-
         translate(this.x, this.y);
+        push();
         rotate((-PI / 2) + this.angle);
         imageMode(CENTER);
         image(this.eImage, 0, 0, this.iWidth, this.iHeight);
+        // circle(0, 0, this.radius * 2);
+
+        // draw healthbar
+        pop();
+        noStroke();
+        fill(255, 0, 0);
+        rect(-20, this.radius + 10, 40, 5);
+        fill(0, 255, 0);
+        rect(-20, this.radius + 10, 40 * this.hp / 10, 5);
+
         pop();
     }
 
@@ -166,6 +175,14 @@ class Projectile {
         }
         return angle;
     }
+
+    updateHealth() {
+        this.hp -= 2;
+    }
+
+    isDead() {
+        return (this.hp <= 0);
+    }
 }
 
 class Player {
@@ -175,6 +192,9 @@ class Player {
         this.radius = radius;
         this.speed = speed;
         this.dir = 0;
+
+        this.iWidth = playerImage.width / 1.6 * getImageSize() / 20;
+        this.iHeight = playerImage.height / 1.6 * getImageSize() / 20;
 
         this.canFire = true;
         this.isFiring = false;
@@ -209,7 +229,8 @@ class Player {
         translate(this.x, this.y);
         imageMode(CENTER);
         rotate(-PI / 2);
-        image(playerImage, 0, 0, playerImage.width * 0.7, playerImage.height * 0.7);
+        // image(playerImage, 0, 0, playerImage.width * 0.7, playerImage.height * 0.7);
+        image(playerImage, 0, 0, this.iWidth, this.iHeight);
         pop();
     }
 

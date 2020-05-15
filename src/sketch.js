@@ -62,8 +62,9 @@ function setup() {
   gameController = new GameController();
 
   for (let i = 0; i < tempAmount; i++) {
-    projectiles[i] = new Projectile(20, floor(random(1, 5.9)), random(3, 6));
+    makeEnemy();
   }
+
   player = new Player(width - 100, 20, 6);
 
   bg = loadImage('assets/star-background.jpg');
@@ -87,13 +88,9 @@ function draw() {
       projectile.display();
       // respawn if out of screen
       if (projectile.x > width + projectile.radius) {
-        projectile.x = -projectile.radius;
-        projectile.getCoefficients();
-        projectile.hasCollided = false;
-        projectile.getANewImage();
-        // or remove it
-        // let projectileIndex = projectiles.indexOf(projectile);
-        // projectileRemoveList.push(projectileIndex);
+        let projectileIndex = projectiles.indexOf(projectile);
+        projectileRemoveList.push(projectileIndex);
+        makeEnemy();
       }
     }
     // remove the projectiles out of screen from the projectiles list
@@ -105,6 +102,7 @@ function draw() {
     player.display();
 
     // check if projectile and player has collided
+    projectileRemoveList = [];
     for (let projectile of projectiles) {
       if (!projectile.hasCollided) {
         myDistance = dist(projectile.x, projectile.y, player.x, player.y);
@@ -121,7 +119,35 @@ function draw() {
       }
 
 
+      // check if projectile and bullet has collided
+      let removeBulletList = [];
+      for (let bullet of bullets) {
+        bulletDist = dist(projectile.x, projectile.y, bullet.x, bullet.y);
+        if (bulletDist <= projectile.radius + Bullet.radius) {
+          console.log("Bullet hit an enemy");
+
+          let bulletIndex = bullets.indexOf(bullet);
+          removeBulletList.push(bulletIndex);
+          projectile.updateHealth();
+
+          if (projectile.isDead()) {
+            console.log("dead")
+            let ind = projectiles.indexOf(projectile);
+            projectileRemoveList.push(ind);
+          }
+        }
+      }
+      // remove bullet from list if it has hit an enemy
+      for (let bulletToRemove of removeBulletList) {
+        bullets.splice(bulletToRemove, 1);
+      }
     }
+    // remove the projectiles if they are dead
+    for (let projectileToRemove of projectileRemoveList) {
+      projectiles.splice(projectileToRemove, 1);
+      makeEnemy();
+    }
+
 
     // move and draw bullets 
     let removeBulletList = [];
@@ -151,6 +177,12 @@ function draw() {
 
 }
 
+// makes an enemy and appends it to the enemies list
+function makeEnemy() {
+  projectiles.push(new Projectile(getImageSize(), floor(random(1, 5.9)), random(3, 6)));
+  // projectiles.push(new Projectile(25, floor(random(1, 5.9)), random(3, 6)));
+}
+
 function keyPressed() {
   player.movement("pressed", key);
   gameController.keyHasBeenPressed();
@@ -169,9 +201,20 @@ function windowResized() {
   resizeCanvas($("#canvas-holder").width(), windowHeight * 0.9);
   // make positions and sizes responsive
   player.x = floor(width * (473 / 498) - (7450 / 249));
-  player.radius = floor(width * (5 / 498) + (1490 / 249));
+  player.radius = getImageSize();
   Bullet.radius = floor(width * (1 / 498) + (298 / 249));
+  player.iWidth = playerImage.width / 1.6 * getImageSize() / 20;
+  player.iHeight = playerImage.height / 1.6 * getImageSize() / 20;
+  
   for (let projectile of projectiles) {
-    projectile.radius = floor(width * (5 / 498) + (1490 / 249));
+    projectile.radius = getImageSize();
+    projectile.iWidth = projectile.eImage.width / 1.6 * getImageSize() / 20;
+    projectile.iHeight = projectile.eImage.height / 1.6 * getImageSize() / 20;
   }
+
+  // we are missing image size of enemies and player...
+}
+
+function getImageSize() {
+  return floor(width * (5 / 498) + (1490 / 249));
 }
