@@ -10,7 +10,9 @@ let nHighscores = [];
 let highscore = 0;
 
 let enemyImages = [];
-let playerLaserImage;
+
+let playerLaserImages = [];
+let selectedLaser;
 
 function preload() {
   // load all enemy images
@@ -27,7 +29,11 @@ function preload() {
 
 
   // load player laser
-  playerLaserImage = loadImage(`assets/playerlaser.png`);
+  let laserColors = ['Blue', 'Brown', 'Green', 'Red', 'Yellow']
+  for (let lColor of laserColors) {
+    playerLaserImages.push(loadImage(`assets/laser${lColor}.png`));
+  }
+  selectedLaser = 0;
 }
 
 function setup() {
@@ -185,6 +191,7 @@ function makeEnemy() {
 
 function keyPressed() {
   player.movement("pressed", key);
+  player.switchLaser();
   gameController.keyHasBeenPressed();
 }
 

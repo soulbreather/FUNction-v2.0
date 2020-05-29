@@ -215,7 +215,7 @@ class Player {
             this.canFire = this.lastFire <= (millis() - this.rateOfFire * 1000);
         }
         if (this.canFire && this.isFiring) {
-            bullets.push(new Bullet(player.x - player.radius, player.y, 10));
+            bullets.push(new Bullet(player.x - player.radius, player.y, 10, selectedLaser));
             this.canFire = false;
             this.lastFire = millis();
         }
@@ -258,6 +258,12 @@ class Player {
             }
         }
     }
+
+    switchLaser() {
+        if (parseInt(key) < 6) {
+            selectedLaser = parseInt(key) - 1;
+        }
+    }
 }
 
 // bullet that is fired from player
@@ -265,9 +271,10 @@ class Bullet {
     // all bullets have the same radius
     static radius = 4;
 
-    constructor(x, y, speed) {
+    constructor(x, y, speed, laserNumber) {
         this.x = x;
         this.y = y;
+        this.laserNumber = laserNumber;
 
         this.speed = speed;
     }
@@ -284,7 +291,8 @@ class Bullet {
         translate(this.x, this.y);
         rotate(-PI / 2);
         imageMode(CENTER);
-        image(playerLaserImage, 0, 0, playerLaserImage.width * 0.7, playerLaserImage.height * 0.7);
+        let imageReference = playerLaserImages[this.laserNumber];
+        image(imageReference, 0, 0, imageReference.width * 0.7, imageReference.height * 0.7);
         pop();
     }
 }
