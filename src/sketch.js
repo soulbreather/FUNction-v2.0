@@ -205,7 +205,7 @@ function windowResized() {
   Bullet.radius = floor(width * (1 / 498) + (298 / 249));
   player.iWidth = playerImage.width / 1.6 * getImageSize() / 20;
   player.iHeight = playerImage.height / 1.6 * getImageSize() / 20;
-  
+
   for (let projectile of projectiles) {
     projectile.radius = getImageSize();
     projectile.iWidth = projectile.eImage.width / 1.6 * getImageSize() / 20;

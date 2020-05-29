@@ -107,7 +107,6 @@ class Projectile {
         this.x += this.speed;
         this.y = this.getYValue();
         this.angle = atan(this.getSlope());
-        // this.angle = 
     }
 
     display() {
