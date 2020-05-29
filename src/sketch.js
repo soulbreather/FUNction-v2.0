@@ -138,7 +138,7 @@ function draw() {
 
             let bulletIndex = bullets.indexOf(bullet);
             removeBulletList.push(bulletIndex);
-            projectile.updateHealth();
+            projectile.updateHealth(bullet.laserNumber);
 
             if (projectile.isDead()) {
               console.log("dead")
@@ -168,13 +168,6 @@ function draw() {
         if (bullet.x < 0 - Bullet.radius) {
           let bulletIndex = bullets.indexOf(bullet);
           removeBulletList.push(bulletIndex);
-          projectile.updateHealth(bullet.laserNumber);
-
-          if (projectile.isDead()) {
-            console.log("dead")
-            let ind = projectiles.indexOf(projectile);
-            projectileRemoveList.push(ind);
-          }
         }
       }
       // remove bullet from list if out of screen
