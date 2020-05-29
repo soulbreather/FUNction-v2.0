@@ -11,7 +11,9 @@ let nHighscores = [];
 let highscore = 0;
 
 let enemyImages = [];
-let playerLaserImage;
+
+let playerLaserImages = [];
+let selectedLaser;
 
 function preload() {
   // load all enemy images
@@ -28,7 +30,11 @@ function preload() {
 
 
   // load player laser
-  playerLaserImage = loadImage(`assets/playerlaser.png`);
+  let laserColors = ['Blue', 'Brown', 'Green', 'Red', 'Yellow']
+  for (let lColor of laserColors) {
+    playerLaserImages.push(loadImage(`assets/laser${lColor}.png`));
+  }
+  selectedLaser = 0;
 }
 
 function setup() {
@@ -162,6 +168,13 @@ function draw() {
         if (bullet.x < 0 - Bullet.radius) {
           let bulletIndex = bullets.indexOf(bullet);
           removeBulletList.push(bulletIndex);
+          projectile.updateHealth(bullet.laserNumber);
+
+          if (projectile.isDead()) {
+            console.log("dead")
+            let ind = projectiles.indexOf(projectile);
+            projectileRemoveList.push(ind);
+          }
         }
       }
       // remove bullet from list if out of screen
@@ -194,6 +207,7 @@ function makeEnemy(makeRandom, specificFunc) {
 
 function keyPressed() {
   player.movement("pressed", key);
+  player.switchLaser();
   gameController.keyHasBeenPressed();
 }
 
