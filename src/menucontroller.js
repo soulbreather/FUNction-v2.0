@@ -7,10 +7,12 @@ class GameController {
         this.score = 0;
         this.lives = 3;
         this.playButton = new Button(width / 2, height / 2, 200, 90, 'Start');
+        this.tutorialButton = new Button(width / 2, height / 2 + 120, 250, 80, 'Tutorial');
     }
 
     displayMenu() {
         this.playButton.display();
+        this.tutorialButton.display();
     }
 
     displayPauseMenu() {
@@ -42,6 +44,12 @@ class GameController {
         if (this.playButton.isClicked()) {
             GameController.isStarted = true;
             GameController.isPlaying = true;
+        }
+        if (this.tutorialButton.isClicked()) {
+
+            GameController.isStarted = true;
+            GameController.isPlaying = true;
+            tutorial();
         }
     }
 
@@ -101,19 +109,21 @@ class Button {
     }
 
     display() {
-        push();
-        translate(this.x - this.width / 2, this.y - this.height / 2);
-        stroke(0);
-        fill(180);
-        rect(0, 0, this.width + 3, this.height + 4);
-        fill(255);
-        noStroke()
-        rect(0, 0, this.width, this.height);
-        fill(0);
-        textSize(70);
-        textAlign(CENTER, CENTER);
-        text(this.text, this.width / 2 - 2, this.height / 2 + 4);
-        pop();
+        if (this.active) {
+            push();
+            translate(this.x - this.width / 2, this.y - this.height / 2);
+            stroke(0);
+            fill(180);
+            rect(0, 0, this.width + 3, this.height + 4);
+            fill(255);
+            noStroke()
+            rect(0, 0, this.width, this.height);
+            fill(0);
+            textSize(70);
+            textAlign(CENTER, CENTER);
+            text(this.text, this.width / 2 - 2, this.height / 2 + 4);
+            pop();
+        }
     }
 
     isClicked() {
