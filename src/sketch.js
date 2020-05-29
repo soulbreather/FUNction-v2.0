@@ -134,7 +134,7 @@ function draw() {
 
           let bulletIndex = bullets.indexOf(bullet);
           removeBulletList.push(bulletIndex);
-          projectile.updateHealth();
+          projectile.updateHealth(bullet.laserNumber);
 
           if (projectile.isDead()) {
             console.log("dead")

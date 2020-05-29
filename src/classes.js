@@ -25,9 +25,6 @@ class Projectile {
 
         // it needs to be called once before running and displaying the projectile
         this.getCoefficients();
-
-
-
     }
 
     getANewImage() {
@@ -176,8 +173,12 @@ class Projectile {
         return angle;
     }
 
-    updateHealth() {
-        this.hp -= 2;
+    updateHealth(laserNumber) {
+        if (laserNumber+1 == this.projectileType) {
+            this.hp -= 8;
+        } else {
+            this.hp -= 2;
+        }
     }
 
     isDead() {
