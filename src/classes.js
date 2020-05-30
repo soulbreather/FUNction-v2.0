@@ -172,11 +172,11 @@ class Projectile {
         return angle;
     }
 
-    updateHealth(laserNumber) {
-        if (laserNumber+1 == this.projectileType) {
-            this.hp -= 8;
+    updateHealth(laserNumber, corresponding=8, other=2) {
+        if (laserNumber + 1 == this.projectileType) {
+            this.hp -= corresponding;
         } else {
-            this.hp -= 2;
+            this.hp -= other;
         }
     }
 
@@ -198,7 +198,7 @@ class Player {
 
         this.canFire = true;
         this.isFiring = false;
-        this.rateOfFire = 0.1;
+        this.rateOfFire = 0.06;
         this.lastFire = -this.rateOfFire;
     }
 
@@ -260,7 +260,7 @@ class Player {
     }
 
     switchLaser() {
-        if (parseInt(key) < 6) {
+        if (parseInt(key) < 6 && parseInt(key) > 0) {
             selectedLaser = parseInt(key) - 1;
         }
     }

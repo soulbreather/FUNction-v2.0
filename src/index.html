@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <!-- Importing all files -->
   <script src="p5.js"></script>
   <script src="p5.sound.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -17,16 +18,20 @@
 </head>
 
 <body>
+  <!-- Importing JavaScript Program -->
   <script src="classes.js"></script>
   <script src="menucontroller.js"></script>
   <script src="sketch.js"></script>
 
+  <!-- Setting up a container -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-xl-9 mt-4 pl-3">
+        <!-- Making a div for our canvas/program -->
         <div id="canvas-holder"></div>
       </div>
       <div class="col-xl-3 mt-4 mx-auto">
+        <!-- Creating a card for the highscores -->
         <div class="card" id="highscores">
           <div class="card-header display-4" id="highscores-header">🏆 Highscores 🏆</div>
           <div class="card-body pb-1" style="height: auto; width: auto;">
@@ -40,6 +45,7 @@
             </div>
           </div>
         </div>
+        <!-- Creating a button to delete highscores -->
         <button type="button" class="btn btn-danger myButton" onclick="gameController.resetHighscores()">⚠️ Reset
           Highscores ⚠️</button>
       </div>

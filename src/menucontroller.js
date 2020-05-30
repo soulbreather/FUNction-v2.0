@@ -35,26 +35,39 @@ class GameController {
     }
 
     keyHasBeenPressed() {
-        if (keyCode == ESCAPE && GameController.isStarted) {
-            GameController.isPaused = !GameController.isPaused;
+        if (keyCode == ESCAPE && currentScreen != 0) {
+            if (currentScreen == 1) {
+                currentScreen = 2;
+            } else if (currentScreen == 2) {
+                currentScreen = 1;
+            }
         }
     }
 
     mouseHasBeenPressed() {
-        if (this.playButton.isClicked()) {
-            GameController.isStarted = true;
-            GameController.isPlaying = true;
-        }
-        if (this.tutorialButton.isClicked()) {
+        if (currentScreen == 0) {
+            if (this.playButton.isClicked()) {
+                currentScreen = 1;
 
-            GameController.isStarted = true;
-            GameController.isPlaying = true;
-            tutorial();
+                for (let i = 0; i < tempAmount; i++) {
+                    makeEnemy(true);
+                }
+
+            }
+            if (this.tutorialButton.isClicked()) {
+                currentScreen = 3;
+                makeEnemy(false, tutorialList[currentTutorialEnemy]);
+            }
+
         }
     }
 
-    survivalScoreUpdater() {
-        this.score += 10;
+    survivalScoreUpdater(wasSpaceship) {
+        if (wasSpaceship) {
+            this.score += 30;
+        } else {
+            this.score += 10;
+        }
     }
 
     displayLives() {
@@ -73,19 +86,19 @@ class GameController {
             myName = myName.slice(0, 10);
         }
         // add
-        nHighscores.push({
+        highscores.push({
             name: myName,
             highscore: this.score,
         });
 
         // sort
-        nHighscores.sort((a, b) => {
+        highscores.sort((a, b) => {
             return b.highscore - a.highscore;
         });
-        console.log(nHighscores);
+        console.log(highscores);
 
         // save
-        let saveValue = JSON.stringify(nHighscores.slice(0, 5));
+        let saveValue = JSON.stringify(highscores.slice(0, 5));
         CookieController.setCookie('minData', saveValue, 365);
 
     }
@@ -130,8 +143,8 @@ class Button {
         if (this.active && mouseX > this.x - this.width / 2 && mouseX < this.x - this.width / 2 + this.width && mouseY > this.y - this.height / 2 && mouseY < this.y - this.height / 2 + this.height) {
             this.active = false;
             return true;
-
         }
+        return false;
     }
 }
 

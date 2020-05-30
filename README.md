@@ -5,6 +5,15 @@ This is game is all about surviving!
 The longer you survive the harder it becomes to survive. You gain points by surviving, and shooting down meteors and spaceships.
 
 You control the ship by using "W" and "S", "W" is up and "S" is down. You shoot by holding down "J".
+Certain laser colors correspond to different functions. The color corresponding to the function will deal a lot more damage than others. The different colors are controlled with the keyboard numbers 1 through 5.
+
+| Laser Color  | Enemy type |
+| ------------- | ------------- |
+| #1 Blue | Linear Function  |
+| #2 Brown | Parabola Function  |
+| #3 Green | Exponential Function  |
+| #4 Red | Hyperbole Function  |
+| #5 Yellow | Trigonometric Function  |
 
 ## How to open/use the program
 
