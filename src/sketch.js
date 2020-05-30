@@ -184,6 +184,15 @@ function draw() {
 
     gameController.displayScore();
     gameController.displayLives();
+
+    push();
+    textSize(32);
+    noStroke();
+    textAlign(CENTER, CENTER);
+    fill(255);
+    text("Your laser type is effective against " + nameofFunctionNumber[selectedLaser], width / 2, height - 40);
+    pop();
+
   } else if (currentScreen == 0) {
     // draw menu
     gameController.displayMenu();
@@ -269,7 +278,8 @@ function draw() {
     textAlign(CENTER, CENTER);
     fill(255);
     text("Select the corresponding laser (1-5) for extra damage", width / 2, 40);
-    text("Current function is: " + nameofFunctionNumber[currentTutorialEnemy], width / 2, height - 40);
+    text("Your laser type is " + nameofFunctionNumber[selectedLaser], width / 2, height - 80);
+    text("Current function is " + nameofFunctionNumber[currentTutorialEnemy], width / 2, height - 40);
     pop();
   }
 
