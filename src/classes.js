@@ -4,6 +4,7 @@ class Projectile {
         this.x = -radius;
         this.y = 0;
         // this.angle = 0;
+        this.trailPositions = [];
 
         this.hp = 10;
 
@@ -104,9 +105,17 @@ class Projectile {
         this.x += this.speed;
         this.y = this.getYValue();
         this.angle = atan(this.getSlope());
+
+        if (frameCount % 7 == 0) {
+            this.trailPositions.unshift(createVector(this.x, this.y));
+        }
+        if (this.trailPositions.length > 10) {
+            this.trailPositions.pop();
+        }
     }
 
     display() {
+        this.displayTrail();
         push();
         translate(this.x, this.y);
         push();
@@ -172,7 +181,19 @@ class Projectile {
         return angle;
     }
 
-    updateHealth(laserNumber, corresponding=8, other=2) {
+    displayTrail() {
+        for (let tN = 0; tN < this.trailPositions.length; tN++) {
+            let trailPos = this.trailPositions[tN];
+            fill(200);
+            let newRadius;// = floor(radius - (radius/trailPositions.length)*i);
+            //newRadius = floor(0.7*radius*pow(i+1, -1));
+            let distance = dist(trailPos.x, trailPos.y, this.x, this.y);
+            newRadius = constrain(floor(this.radius * 20 * pow(distance + 1, -0.86)), 0, this.radius);
+            if (newRadius > 3) circle(trailPos.x, trailPos.y, newRadius);
+        }
+    }
+
+    updateHealth(laserNumber, corresponding = 8, other = 2) {
         if (laserNumber + 1 == this.projectileType) {
             this.hp -= corresponding;
         } else {
