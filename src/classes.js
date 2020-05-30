@@ -166,7 +166,7 @@ class Projectile {
             // angle = this.a * pow(this.x, -1) + this.c;
         } else if (this.projectileType == 5) {
             // trigo function
-            angle = Math.atan(cos(this.b * this.x + this.c));
+            angle = Math.atan(this.a * this.b * cos(this.b * this.x + this.c));
 
         }
         return angle;
