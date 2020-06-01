@@ -192,7 +192,7 @@ function draw() {
     textSize(32);
     noStroke();
     textAlign(CENTER, CENTER);
-    fill(255);
+    fill(255, 190);
     text("Your laser type is effective against " + nameofFunctionNumber[selectedLaser], width / 2, height - 40);
     pop();
 
@@ -281,6 +281,7 @@ function draw() {
     textAlign(CENTER, CENTER);
     fill(255);
     text("Select the corresponding laser (1-5) for extra damage", width / 2, 40);
+    fill(255, 200);
     text("Your laser type is " + nameofFunctionNumber[selectedLaser], width / 2, height - 80);
     text("Current function is " + nameofFunctionNumber[currentTutorialEnemy], width / 2, height - 40);
     pop();

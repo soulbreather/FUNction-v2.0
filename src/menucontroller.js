@@ -20,10 +20,9 @@ class GameController {
         textAlign(CENTER, CENTER);
         textSize(50);
         text('The game is paused', width / 2, height / 2 - 20);
+
         textSize(30);
-
         text('Hit ESCAPE to resume the game', width / 2, height / 2 + 40);
-
         pop();
     }
 
