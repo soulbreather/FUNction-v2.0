@@ -25,6 +25,7 @@ let currentScreen = 0;
 // 2 = pause screen
 // 3 = tutorial screen
 
+// this function blocks the main thread and waits until all images are loaded
 function preload() {
   // load all enemy images
   let enemyColors = ['Blue', 'Green', 'Red'];
@@ -45,6 +46,10 @@ function preload() {
     playerLaserImages.push(loadImage(`assets/laser${lColor}.png`));
   }
   selectedLaser = 0;
+
+  // load background image
+  bg = loadImage('assets/star-background.jpg');
+
 }
 
 function setup() {
@@ -79,8 +84,6 @@ function setup() {
   gameController = new GameController();
 
   player = new Player(width - 100, 20, 6);
-
-  bg = loadImage('assets/star-background.jpg');
 
   windowResized();
 }
