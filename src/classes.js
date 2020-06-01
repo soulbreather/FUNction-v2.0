@@ -264,7 +264,7 @@ class Player {
             if (keyCode == DOWN_ARROW || myKey == "s") {
                 this.dir += 1;
             }
-            if (myKey == "j") {
+            if (myKey == "j" || keyCode == 32) {
                 this.isFiring = true;
             }
         } else if (state == "released") {
@@ -274,7 +274,7 @@ class Player {
             if (keyCode == DOWN_ARROW || myKey == "s") {
                 this.dir -= 1;
             }
-            if (myKey == "j") {
+            if (myKey == "j" || keyCode == 32) {
                 this.isFiring = false;
             }
         }
