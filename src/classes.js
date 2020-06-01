@@ -5,6 +5,7 @@ class Projectile {
         this.y = 0;
         // this.angle = 0;
         this.trailPositions = [];
+        this.trailLength = 20;
 
         this.hp = 10;
 
@@ -109,7 +110,7 @@ class Projectile {
         if (frameCount % 7 == 0) {
             this.trailPositions.unshift(createVector(this.x, this.y));
         }
-        if (this.trailPositions.length > 10) {
+        if (this.trailPositions.length > this.trailLength) {
             this.trailPositions.pop();
         }
     }
@@ -182,6 +183,9 @@ class Projectile {
     }
 
     displayTrail() {
+        push();
+        stroke(255);
+        strokeWeight(1);
         for (let tN = 0; tN < this.trailPositions.length; tN++) {
             let trailPos = this.trailPositions[tN];
             fill(200);
@@ -189,8 +193,9 @@ class Projectile {
             //newRadius = floor(0.7*radius*pow(i+1, -1));
             let distance = dist(trailPos.x, trailPos.y, this.x, this.y);
             newRadius = constrain(floor(this.radius * 20 * pow(distance + 1, -0.86)), 0, this.radius);
-            if (newRadius > 3) circle(trailPos.x, trailPos.y, newRadius);
+            if (newRadius > 1) circle(trailPos.x, trailPos.y, newRadius);
         }
+        pop();
     }
 
     updateHealth(laserNumber, corresponding = 8, other = 2) {
