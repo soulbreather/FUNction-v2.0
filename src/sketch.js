@@ -4,7 +4,7 @@ let bg;
 let tempAmount = 5;
 let player;
 let showDamageUntil = 0;
-let projectiles = [];
+let enemies = [];
 let bullets = [];
 
 let tutorialList = [1, 2, 3, 4, 5];
@@ -99,32 +99,32 @@ function draw() {
       gameController.survivalScoreUpdater(false);
     }
 
-    // draw and moveprojectiles
-    let projectileRemoveList = [];
-    for (let projectile of projectiles) {
-      projectile.move();
-      projectile.display();
+    // draw and moveenemies
+    let enemyRemoveList = [];
+    for (let enemy of enemies) {
+      enemy.move();
+      enemy.display();
       // respawn if out of screen
-      if (projectile.x > width + projectile.radius) {
-        let projectileIndex = projectiles.indexOf(projectile);
-        projectileRemoveList.push(projectileIndex);
+      if (enemy.x > width + enemy.radius) {
+        let enemyIndex = enemies.indexOf(enemy);
+        enemyRemoveList.push(enemyIndex);
         makeEnemy(true);
       }
     }
-    // remove the projectiles out of screen from the projectiles list
-    for (let projectileToRemove of projectileRemoveList) {
-      projectiles.splice(projectileToRemove, 1);
+    // remove the enemies out of screen from the enemies list
+    for (let enemyToRemove of enemyRemoveList) {
+      enemies.splice(enemyToRemove, 1);
     }
     // move and draw player
     player.move();
     player.display();
 
-    // check if projectile and player has collided
-    projectileRemoveList = [];
-    for (let projectile of projectiles) {
-      if (!projectile.hasCollided) {
-        myDistance = dist(projectile.x, projectile.y, player.x, player.y);
-        if (myDistance <= projectile.radius + player.radius) {
+    // check if enemy and player has collided
+    enemyRemoveList = [];
+    for (let enemy of enemies) {
+      if (!enemy.hasCollided) {
+        myDistance = dist(enemy.x, enemy.y, player.x, player.y);
+        if (myDistance <= enemy.radius + player.radius) {
           // A collision has occured
           console.log("A collision has occured.");
           gameController.lives -= 1;
@@ -133,27 +133,27 @@ function draw() {
             gameController.saveHighscores();
             location.reload();
           }
-          projectile.hasCollided = true;
+          enemy.hasCollided = true;
         }
       }
 
 
-      // check if projectile and bullet has collided
+      // check if enemy and bullet has collided
       let removeBulletList = [];
       for (let bullet of bullets) {
-        bulletDist = dist(projectile.x, projectile.y, bullet.x, bullet.y);
-        if (bulletDist <= projectile.radius + Bullet.radius) {
+        bulletDist = dist(enemy.x, enemy.y, bullet.x, bullet.y);
+        if (bulletDist <= enemy.radius + Bullet.radius) {
           console.log("Bullet hit an enemy");
 
           let bulletIndex = bullets.indexOf(bullet);
           removeBulletList.push(bulletIndex);
-          projectile.updateHealth(bullet.laserNumber);
+          enemy.updateHealth(bullet.laserNumber);
 
-          if (projectile.isDead()) {
+          if (enemy.isDead()) {
             // you get extra points for destroying enemy ships
             gameController.survivalScoreUpdater(true);
-            let ind = projectiles.indexOf(projectile);
-            projectileRemoveList.push(ind);
+            let ind = enemies.indexOf(enemy);
+            enemyRemoveList.push(ind);
           }
         }
       }
@@ -162,9 +162,9 @@ function draw() {
         bullets.splice(bulletToRemove, 1);
       }
     }
-    // remove the projectiles if they are dead
-    for (let projectileToRemove of projectileRemoveList) {
-      projectiles.splice(projectileToRemove, 1);
+    // remove the enemies if they are dead
+    for (let enemyToRemove of enemyRemoveList) {
+      enemies.splice(enemyToRemove, 1);
       makeEnemy(true);
     }
 
@@ -213,14 +213,14 @@ function draw() {
     player.display();
 
     // move and display enemy
-    let projectileRemoveList = [];
-    for (let projectile of projectiles) {
-      projectile.move();
-      projectile.display();
+    let enemyRemoveList = [];
+    for (let enemy of enemies) {
+      enemy.move();
+      enemy.display();
       // respawn if out of screen
-      if (projectile.x > width + projectile.radius) {
-        let projectileIndex = projectiles.indexOf(projectile);
-        projectileRemoveList.push(projectileIndex);
+      if (enemy.x > width + enemy.radius) {
+        let enemyIndex = enemies.indexOf(enemy);
+        enemyRemoveList.push(enemyIndex);
         makeEnemy(false, tutorialList[currentTutorialEnemy]);
       }
     }
@@ -240,19 +240,19 @@ function draw() {
     for (let bulletToRemove of removeBulletList) {
       bullets.splice(bulletToRemove, 1);
     }
-    for (let projectile of projectiles) {
-      // check if projectile and bullet has collided
+    for (let enemy of enemies) {
+      // check if enemy and bullet has collided
       removeBulletList = [];
       for (let bullet of bullets) {
-        bulletDist = dist(projectile.x, projectile.y, bullet.x, bullet.y);
-        if (bulletDist <= projectile.radius + Bullet.radius) {
+        bulletDist = dist(enemy.x, enemy.y, bullet.x, bullet.y);
+        if (bulletDist <= enemy.radius + Bullet.radius) {
           console.log("Bullet hit an enemy");
 
           let bulletIndex = bullets.indexOf(bullet);
           removeBulletList.push(bulletIndex);
-          projectile.updateHealth(bullet.laserNumber, 7, 0.4);
+          enemy.updateHealth(bullet.laserNumber, 7, 0.4);
 
-          if (projectile.isDead()) {
+          if (enemy.isDead()) {
             // spawn the next enemy type
             currentTutorialEnemy += 1;
             if (currentTutorialEnemy > 4) {
@@ -262,8 +262,8 @@ function draw() {
 
             }
 
-            let ind = projectiles.indexOf(projectile);
-            projectileRemoveList.push(ind);
+            let ind = enemies.indexOf(enemy);
+            enemyRemoveList.push(ind);
           }
         }
       }
@@ -275,9 +275,9 @@ function draw() {
     }
 
 
-    // remove the projectiles out of screen from the projectiles list
-    for (let projectileToRemove of projectileRemoveList) {
-      projectiles.splice(projectileToRemove, 1);
+    // remove the enemies out of screen from the enemies list
+    for (let enemyToRemove of enemyRemoveList) {
+      enemies.splice(enemyToRemove, 1);
     }
 
     push();
@@ -297,10 +297,10 @@ function draw() {
 // makes an enemy and appends it to the enemies list
 function makeEnemy(makeRandom, specificFunc) {
   if (makeRandom == true) {
-    projectiles.push(new Projectile(getImageSize(), floor(random(1, 5.9)), random(3, 6)));
+    enemies.push(new Enemy(getImageSize(), floor(random(1, 5.9)), random(3, 6)));
   }
   if (makeRandom != true) {
-    projectiles.push(new Projectile(getImageSize(), specificFunc, random(3, 6)));
+    enemies.push(new Enemy(getImageSize(), specificFunc, random(3, 6)));
   }
 }
 
@@ -328,10 +328,10 @@ function windowResized() {
   player.iWidth = playerImage.width / 1.6 * getImageSize() / 20;
   player.iHeight = playerImage.height / 1.6 * getImageSize() / 20;
 
-  for (let projectile of projectiles) {
-    projectile.radius = getImageSize();
-    projectile.iWidth = projectile.eImage.width / 1.6 * getImageSize() / 20;
-    projectile.iHeight = projectile.eImage.height / 1.6 * getImageSize() / 20;
+  for (let enemy of enemies) {
+    enemy.radius = getImageSize();
+    enemy.iWidth = enemy.eImage.width / 1.6 * getImageSize() / 20;
+    enemy.iHeight = enemy.eImage.height / 1.6 * getImageSize() / 20;
   }
 
 }

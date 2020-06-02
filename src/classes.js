@@ -1,5 +1,5 @@
-class Projectile { // this class creates enemies/projectiles
-    constructor(radius, projectileType, speed) {
+class Enemy { // this class creates enemies/enemies
+    constructor(radius, enemyType, speed) {
         // positional variables
         this.x = -radius;
         this.y = 0;
@@ -11,7 +11,7 @@ class Projectile { // this class creates enemies/projectiles
 
         // size and type
         this.radius = radius;
-        this.projectileType = projectileType;
+        this.enemyType = enemyType;
         this.speed = speed;
         this.hasCollided = false;
         this.col = color(random(0, 255), random(0, 255), random(0, 255));
@@ -25,7 +25,7 @@ class Projectile { // this class creates enemies/projectiles
         this.c = 0;
         this.d = 0;
 
-        // it needs to be called once before running and displaying the projectile
+        // it needs to be called once before running and displaying the enemy
         this.getCoefficients();
     }
 
@@ -37,15 +37,15 @@ class Projectile { // this class creates enemies/projectiles
 
     // this function creates and gets random coefficients
     getCoefficients() {
-        if (this.projectileType == 1) {
+        if (this.enemyType == 1) {
             this.setupLineaer();
-        } else if (this.projectileType == 2) {
+        } else if (this.enemyType == 2) {
             this.setupParabel();
-        } else if (this.projectileType == 3) {
+        } else if (this.enemyType == 3) {
             this.setupEksponentiel();
-        } else if (this.projectileType == 4) {
+        } else if (this.enemyType == 4) {
             this.setupHyperbel();
-        } else if (this.projectileType == 5) {
+        } else if (this.enemyType == 5) {
             this.setupTrigo();
         }
     }
@@ -139,19 +139,19 @@ class Projectile { // this class creates enemies/projectiles
     // calculates the Y value of the given x value according to its function
     getYValue() {
         let y = 0;
-        if (this.projectileType == 1) {
+        if (this.enemyType == 1) {
             // lineaer funktion
             y = this.a * this.x + this.b;
-        } else if (this.projectileType == 2) {
+        } else if (this.enemyType == 2) {
             // andengrads function
             y = this.a * pow(this.x, 2) + this.b * this.x + this.c;
-        } else if (this.projectileType == 3) {
+        } else if (this.enemyType == 3) {
             // eksponentiel function
             y = this.b * pow(this.a, this.x);
-        } else if (this.projectileType == 4) {
+        } else if (this.enemyType == 4) {
             // hyperbole function
             y = this.a * pow(this.x, -1) + this.c;
-        } else if (this.projectileType == 5) {
+        } else if (this.enemyType == 5) {
             // trigo function
             y = this.a * sin(this.b * this.x + this.c) + this.d;
         }
@@ -161,20 +161,20 @@ class Projectile { // this class creates enemies/projectiles
     getSlope() { // calculates the slope of the functions
         let angle = 0;
 
-        if (this.projectileType == 1) {
+        if (this.enemyType == 1) {
             // lineaer funktion
             angle = Math.atan(this.a);
-        } else if (this.projectileType == 2) {
+        } else if (this.enemyType == 2) {
             // andengrads function
             angle = Math.atan(2 * this.a * this.x + this.b);
-        } else if (this.projectileType == 3) {
+        } else if (this.enemyType == 3) {
             // eksponentiel function
             angle = Math.atan(this.b * log(this.a) * pow(this.a, this.x));
-        } else if (this.projectileType == 4) {
+        } else if (this.enemyType == 4) {
             // hyperbole function
             angle = -(this.a / pow(this.x, 2));
             // angle = this.a * pow(this.x, -1) + this.c;
-        } else if (this.projectileType == 5) {
+        } else if (this.enemyType == 5) {
             // trigo function
             angle = Math.atan(this.a * this.b * cos(this.b * this.x + this.c));
 
@@ -198,7 +198,7 @@ class Projectile { // this class creates enemies/projectiles
     }
 
     updateHealth(laserNumber, corresponding = 8, other = 0.8) { // updates enemy health when they are hit
-        if (laserNumber + 1 == this.projectileType) {
+        if (laserNumber + 1 == this.enemyType) {
             this.hp -= corresponding;
         } else {
             this.hp -= other;

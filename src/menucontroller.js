@@ -43,7 +43,7 @@ class GameController {
         if (currentScreen == 0) {
             if (this.playButton.isClicked()) {
                 currentScreen = 1;
-                projectiles = [];
+                enemies = [];
                 bullets = [];
                 for (let i = 0; i < tempAmount; i++) {
                     makeEnemy(true);
