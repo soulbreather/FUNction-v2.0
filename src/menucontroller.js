@@ -64,7 +64,7 @@ class GameController {
 
     survivalScoreUpdater(wasSpaceship) {
         if (wasSpaceship) {
-            this.score += 30;
+            this.score += 50;
         } else {
             this.score += 10;
         }

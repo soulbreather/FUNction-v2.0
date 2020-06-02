@@ -198,7 +198,7 @@ class Projectile {
         pop();
     }
 
-    updateHealth(laserNumber, corresponding = 8, other = 2) {
+    updateHealth(laserNumber, corresponding = 8, other = 0.8) {
         if (laserNumber + 1 == this.projectileType) {
             this.hp -= corresponding;
         } else {

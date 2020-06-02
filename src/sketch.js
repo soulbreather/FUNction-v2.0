@@ -3,6 +3,7 @@ let gameController;
 let bg;
 let tempAmount = 5;
 let player;
+let showDamageUntil = 0;
 let projectiles = [];
 let bullets = [];
 
@@ -127,6 +128,7 @@ function draw() {
           // A collision has occured
           console.log("A collision has occured.");
           gameController.lives -= 1;
+          showDamageUntil = millis() + 100;
           if (gameController.lives <= 0) {
             gameController.saveHighscores();
             location.reload();
@@ -195,6 +197,10 @@ function draw() {
     fill(255, 190);
     text("Your laser type is effective against " + nameofFunctionNumber[selectedLaser], width / 2, height - 40);
     pop();
+
+    if (showDamageUntil > millis()) {
+      background(255, 0, 0);
+    }
 
   } else if (currentScreen == 0) {
     // draw menu
