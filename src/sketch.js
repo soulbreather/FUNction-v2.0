@@ -150,7 +150,6 @@ function draw() {
           projectile.updateHealth(bullet.laserNumber);
 
           if (projectile.isDead()) {
-            // console.log("dead")
             // you get extra points for destroying enemy ships
             gameController.survivalScoreUpdater(true);
             let ind = projectiles.indexOf(projectile);
@@ -335,7 +334,6 @@ function windowResized() {
     projectile.iHeight = projectile.eImage.height / 1.6 * getImageSize() / 20;
   }
 
-  // we are missing image size of enemies and player...
 }
 
 function getImageSize() {

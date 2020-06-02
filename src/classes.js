@@ -1,4 +1,4 @@
-class Projectile {
+class Projectile { // this class creates enemies/projectiles
     constructor(radius, projectileType, speed) {
         // positional variables
         this.x = -radius;
@@ -29,7 +29,7 @@ class Projectile {
         this.getCoefficients();
     }
 
-    getANewImage() {
+    getANewImage() { // chooses a random image and sizes it according to the players screensize
         this.eImage = enemyImages[Math.floor(random(enemyImages.length))];
         this.iWidth = this.eImage.width / 1.6 * getImageSize() / 20;
         this.iHeight = this.eImage.height / 1.6 * getImageSize() / 20;
@@ -102,7 +102,7 @@ class Projectile {
         this.d = height / 2 + random(-40, 40);
     }
 
-    move() {
+    move() { // calculates position
         this.x += this.speed;
         this.y = this.getYValue();
         this.angle = atan(this.getSlope());
@@ -115,7 +115,7 @@ class Projectile {
         }
     }
 
-    display() {
+    display() { // draws at the current position
         this.displayTrail();
         push();
         translate(this.x, this.y);
@@ -158,7 +158,7 @@ class Projectile {
         return y;
     }
 
-    getSlope() {
+    getSlope() { // calculates the slope of the functions
         let angle = 0;
 
         if (this.projectileType == 1) {
@@ -182,15 +182,14 @@ class Projectile {
         return angle;
     }
 
-    displayTrail() {
+    displayTrail() { // creates and desplays trail behind enemies
         push();
         stroke(255);
         strokeWeight(1);
         for (let tN = 0; tN < this.trailPositions.length; tN++) {
             let trailPos = this.trailPositions[tN];
             fill(200);
-            let newRadius;// = floor(radius - (radius/trailPositions.length)*i);
-            //newRadius = floor(0.7*radius*pow(i+1, -1));
+            let newRadius;
             let distance = dist(trailPos.x, trailPos.y, this.x, this.y);
             newRadius = constrain(floor(this.radius * 20 * pow(distance + 1, -0.86)), 0, this.radius);
             if (newRadius > 1) circle(trailPos.x, trailPos.y, newRadius);
@@ -198,7 +197,7 @@ class Projectile {
         pop();
     }
 
-    updateHealth(laserNumber, corresponding = 8, other = 0.8) {
+    updateHealth(laserNumber, corresponding = 8, other = 0.8) { // updates enemy health when they are hit
         if (laserNumber + 1 == this.projectileType) {
             this.hp -= corresponding;
         } else {
@@ -206,7 +205,7 @@ class Projectile {
         }
     }
 
-    isDead() {
+    isDead() { // checks if enemy is dead
         return (this.hp <= 0);
     }
 }
@@ -249,13 +248,9 @@ class Player {
 
     display() {
         push();
-        // fill(color(255, 0, 0));
-        // noStroke();
-        // circle(this.x, this.y, this.radius * 2);
         translate(this.x, this.y);
         imageMode(CENTER);
         rotate(-PI / 2);
-        // image(playerImage, 0, 0, playerImage.width * 0.7, playerImage.height * 0.7);
         image(playerImage, 0, 0, this.iWidth, this.iHeight);
         pop();
     }
@@ -293,7 +288,7 @@ class Player {
 }
 
 // bullet that is fired from player
-class Bullet {
+class Bullet { // this class creates the bullets that the player shoots 
     // all bullets have the same radius
     static radius = 4;
 
@@ -311,9 +306,6 @@ class Bullet {
 
     display() {
         push();
-        // stroke(0);
-        // fill(color(255));
-        // circle(this.x, this.y, Bullet.radius * 2);
         translate(this.x, this.y);
         rotate(-PI / 2);
         imageMode(CENTER);

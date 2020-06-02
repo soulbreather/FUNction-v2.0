@@ -6,16 +6,16 @@ class GameController {
     constructor() {
         this.score = 0;
         this.lives = 3;
-        this.playButton = new Button(width / 2, height / 2, 200, 90, 'Start');
+        this.playButton = new Button(width / 2, height / 2, 200, 90, 'Play');
         this.tutorialButton = new Button(width / 2, height / 2 + 120, 250, 80, 'Tutorial');
     }
 
-    displayMenu() {
+    displayMenu() { // displays the main menu
         this.playButton.display();
         this.tutorialButton.display();
     }
 
-    displayPauseMenu() {
+    displayPauseMenu() { // displays the pause menu
         push();
         textAlign(CENTER, CENTER);
         textSize(50);
@@ -26,14 +26,14 @@ class GameController {
         pop();
     }
 
-    displayScore() {
+    displayScore() { // displays the current score in the top right corner
         textAlign(RIGHT, TOP);
         textSize(30);
         fill(255);
         text(str(this.score) + " points", width - 5, 5);
     }
 
-    keyHasBeenPressed() {
+    keyHasBeenPressed() { // Detects if the escape key was hit and changes screens accordingly
         if (keyCode == ESCAPE && currentScreen != 0) {
             if (currentScreen == 1) {
                 currentScreen = 2;
@@ -43,7 +43,7 @@ class GameController {
         }
     }
 
-    mouseHasBeenPressed() {
+    mouseHasBeenPressed() { // detects if mouse has clicked on either the tutorial button or the play/start button
         if (currentScreen == 0) {
             if (this.playButton.isClicked()) {
                 currentScreen = 1;
@@ -62,7 +62,7 @@ class GameController {
         }
     }
 
-    survivalScoreUpdater(wasSpaceship) {
+    survivalScoreUpdater(wasSpaceship) { // updates the current score
         if (wasSpaceship) {
             this.score += 50;
         } else {
@@ -70,14 +70,14 @@ class GameController {
         }
     }
 
-    displayLives() {
+    displayLives() { // updates and draws lives in top left corner
         this.hearts = "❤️".repeat(this.lives);
         textAlign(LEFT, TOP);
         textSize(30);
         text(str(this.hearts), 0 + 5, 5);
     }
 
-    saveHighscores() {
+    saveHighscores() { // saves highscore in cookies
         let myName = window.prompt('Type in the name that should be displayed with the score', '');
         if (myName == null || myName == "") {
             myName = 'Unnamed';
@@ -111,7 +111,7 @@ class GameController {
     }
 }
 
-class Button {
+class Button { // a class for interactable buttons
     constructor(x, y, width, height, text) {
         this.x = x;
         this.y = y;
@@ -121,7 +121,7 @@ class Button {
         this.active = true;
     }
 
-    display() {
+    display() { // displays the button
         if (this.active) {
             push();
             translate(this.x - this.width / 2, this.y - this.height / 2);
@@ -139,7 +139,7 @@ class Button {
         }
     }
 
-    isClicked() {
+    isClicked() { // checks if the button was clicked
         if (this.active && mouseX > this.x - this.width / 2 && mouseX < this.x - this.width / 2 + this.width && mouseY > this.y - this.height / 2 && mouseY < this.y - this.height / 2 + this.height) {
             this.active = false;
             return true;
@@ -148,7 +148,7 @@ class Button {
     }
 }
 
-class CookieController {
+class CookieController { // compares current cookie with new data and adds values accordingly
     static setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
