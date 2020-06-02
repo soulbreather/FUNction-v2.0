@@ -1,8 +1,4 @@
 class GameController {
-    static isStarted = false;
-    static isPlaying = false;
-    static isPaused = false;
-
     constructor() {
         this.score = 0;
         this.lives = 3;
