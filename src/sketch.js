@@ -27,6 +27,7 @@ let currentScreen = 0;
 // 3 = tutorial screen
 
 let audioLasers = [];
+let backgroundAudio;
 
 // this function blocks the main thread and waits until all images are loaded
 function preload() {
@@ -41,7 +42,6 @@ function preload() {
 
   // load player image
   playerImage = loadImage(`assets/playership.png`);
-
 
   // load player laser
   let laserColors = ['Blue', 'Brown', 'Green', 'Red', 'Yellow']
@@ -58,6 +58,9 @@ function preload() {
     const audioFile = loadSound(`assets/audio/laserSound${i}.ogg`);
     audioLasers.push(audioFile);
   }
+
+  // Load background audio
+  backgroundAudio = loadSound('assets/audio/Battleship.mp3');
 
 }
 
@@ -95,6 +98,11 @@ function setup() {
   player = new Player(width - 100, 20, 6);
 
   windowResized();
+
+  // start playing background music
+  backgroundAudio.play();
+  backgroundAudio.setVolume(0.18);
+  backgroundAudio.loop();
 }
 
 function draw() {
