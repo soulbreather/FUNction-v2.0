@@ -26,6 +26,8 @@ let currentScreen = 0;
 // 2 = pause screen
 // 3 = tutorial screen
 
+let audioLasers = [];
+
 // this function blocks the main thread and waits until all images are loaded
 function preload() {
   // load all enemy images
@@ -50,6 +52,12 @@ function preload() {
 
   // load background image
   bg = loadImage('assets/star-background.jpg');
+
+  // Load laser audio from file
+  for (let i = 1; i < 6; i++) {
+    const audioFile = loadSound(`assets/audio/laserSound${i}.ogg`);
+    audioLasers.push(audioFile);
+  }
 
 }
 

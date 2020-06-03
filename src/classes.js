@@ -240,6 +240,7 @@ class Player {
             this.canFire = this.lastFire <= (millis() - this.rateOfFire * 1000);
         }
         if (this.canFire && this.isFiring) {
+            audioLasers[selectedLaser].play();
             bullets.push(new Bullet(player.x - player.radius, player.y, 10, selectedLaser));
             this.canFire = false;
             this.lastFire = millis();
