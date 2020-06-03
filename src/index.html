@@ -32,22 +32,42 @@
       </div>
       <div class="col-xl-3 mt-4 mx-auto">
         <!-- Creating a card for the highscores -->
-        <div class="card" id="highscores">
-          <div class="card-header display-4" id="highscores-header">🏆 Highscores 🏆</div>
-          <div class="card-body pb-1" style="height: auto; width: auto;">
-            <div class="row">
-              <div class="col mx-5">
-                <table class="table mb-0" id="highscore-table">
-                  <tbody id="highscoreTable">
-                  </tbody>
-                </table>
+        <div class="row m-0 p-0">
+          <div class="card" id="highscores">
+            <div class="card-header display-4" id="highscores-header">🏆 Highscores 🏆</div>
+            <div class="card-body pb-1" style="height: auto; width: auto;">
+              <div class="row">
+                <div class="col mx-5">
+                  <table class="table mb-0" id="highscore-table">
+                    <tbody id="highscoreTable">
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Creating a button to delete highscores -->
-        <button type="button" class="btn btn-danger myButton" onclick="gameController.resetHighscores()">⚠️ Reset
-          Highscores ⚠️</button>
+        <div class="row m-0 p-0">
+          <!-- Creating a button to delete highscores -->
+          <button type="button" class="btn btn-danger myButton p-2" onclick="gameController.resetHighscores()" style="">⚠️ Reset
+            Highscores ⚠️</button>
+        </div>
+        <div class="row mt-2 mx-auto p-0">
+          <div class="card" id="styring-card">
+            <div class="card-header" style="font-size: 1.5rem; text-align: center; font-weight: bold; background-color: rgb(62, 59, 68);">
+              Styring
+            </div>
+            <div class="card-body">
+              <ul class="px-3">
+                <li>Du styrer skibet ved at trykke på <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> eller
+                  <kbd>↑</kbd>
+                  <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd>.</li>
+                <li>For at skyde de fjendtlige skibe, kan du trykke på <kbd>SPACE</kbd> eller <kbd>J</kbd>.</li>
+                <li>Du kan ændre lasertype ved at trykke på knapperne fra <kbd>1</kbd> til <kbd>5</kbd>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -57,13 +77,13 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-  </script>
+    </script>
 </body>
 
 </html>
