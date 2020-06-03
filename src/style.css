@@ -11,6 +11,7 @@ canvas {
 #highscores {
   background-color: rgb(87, 87, 87);
   color: white;
+  width: 100%;
 }
 
 #highscores-header {
@@ -21,6 +22,11 @@ canvas {
 
 #highscore-table td {
   text-align: center;
+}
+
+#styring-card {
+  background-color: rgb(106, 107, 124);
+  color: white;
 }
 
 .myButton {
