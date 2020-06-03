@@ -1,6 +1,6 @@
 ## How To Play
 
-This is game is all about surviving!
+This game is all about surviving!
 
 The longer you survive the harder it becomes to survive. You gain points by surviving, and shooting down meteors and spaceships.
 
