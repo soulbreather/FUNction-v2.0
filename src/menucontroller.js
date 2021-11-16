@@ -62,7 +62,7 @@ class GameController {
         if (wasSpaceship) {
             this.score += 50;
         } else {
-            this.score += 10;
+            this.score += 1000;
         }
     }
 
